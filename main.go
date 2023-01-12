@@ -20,7 +20,7 @@ func main() {
 		return
 	}
 
-	fmt.Println("\tSuccessfully opened books.xml file")
+	fmt.Println("Successfully opened books.xml file")
 	defer xmlFile.Close()
 
 	byteValue, _ := io.ReadAll(xmlFile)
