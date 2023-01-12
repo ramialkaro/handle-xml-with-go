@@ -7,6 +7,8 @@ import (
 	"os"
 
 	"github.com/ramialkaro/handle-xml-with-go/model"
+	"github.com/jedib0t/go-pretty/v6/table"
+
 )
 
 func main() {
@@ -26,9 +28,18 @@ func main() {
 	//unmarshal takes a []byte and fills the catalog struct with the values found in the xmlFile
 	catalog := &model.Catalog{}
 	xml.Unmarshal(byteValue, &catalog)
-
+ 
+ 	t := table.NewWriter()
+  t.SetOutputMirror(os.Stdout)
+  t.AppendHeader(table.Row{"#", "Author", "Title", "Genre", "Price", "Publish Date", "Description"})
+   
 	for _, book := range catalog.Books {
 
-		fmt.Println(book.Title)
+	 t.AppendRows([]table.Row{
+        {book.BookID, book.Author, book.Title, book.Genre, book.Price, book.PublishDate, book.Description},
+    })
 	}
+
+    t.AppendSeparator()
+    t.Render()
 }
